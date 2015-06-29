@@ -1,5 +1,5 @@
 {
-  "name": "loadsys/loadsys-theme",
+  "name": "loadsys/cakephp-loadsys-theme",
   "description": "CakePHP 3.x bake generation theme that matches Loadsys' code sniffer standards.",
   "type": "cakephp-plugin",
   "keywords": ["cakephp", "bake", "templates", "plugin"],
@@ -35,6 +35,9 @@
       "LoadsysTheme\\Test\\": "tests",
       "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
     }
+  },
+  "extra": {
+    "installer-name": "LoadsysTheme"
   }
 }
 
