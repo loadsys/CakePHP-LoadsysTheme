@@ -1,40 +1,40 @@
 {
-	"name": "cakephp/loadsys-theme",
-	"description": "CakePHP LoadsysTheme",
-	"type": "cakephp-plugin",
-	"keywords": ["cakephp", "bake", "templates", "plugin"],
-	"homepage": "https://github.com/loadsys/CakePHP-LoadsysTheme",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Justin Yost",
-			"email": "justin@loadsys.com",
-			"homepage": "https://www.yostivanich.com/",
-			"role": "Author"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/loadsys/CakePHP-LoadsysTheme/issues",
-		"source": "https://github.com/loadsys/CakePHP-LoadsysTheme"
-	},
-	"require": {
+  "name": "loadsys/loadsys-theme",
+  "description": "CakePHP LoadsysTheme",
+  "type": "cakephp-plugin",
+  "keywords": ["cakephp", "bake", "templates", "plugin"],
+  "homepage": "https://github.com/loadsys/CakePHP-LoadsysTheme",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Justin Yost",
+      "email": "justin@loadsys.com",
+      "homepage": "https://www.yostivanich.com/",
+      "role": "Author"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/loadsys/CakePHP-LoadsysTheme/issues",
+    "source": "https://github.com/loadsys/CakePHP-LoadsysTheme"
+  },
+  "require": {
     "php": ">=5.4.16",
-		"cakephp/cakephp": "~3.0"
-	},
-	"require-dev": {
-		"loadsys/loadsys_codesniffer": "~3.0",
-		"phpunit/phpunit": "~4.1"
-	},
-	"autoload": {
-		"psr-4": {
-			"LoadsysTheme\\": "src"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
+    "cakephp/cakephp": "~3.0",
+    "loadsys/loadsys_codesniffer": "~3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "LoadsysTheme\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "LoadsysTheme\\Test\\": "tests",
       "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
-		}
-	}
+    }
+  }
 }
 
