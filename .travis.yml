@@ -29,15 +29,15 @@ before_install:
 install:
   - sh -c "composer config -g github-oauth.github.com $GITHUB_TOKEN"
   - sh -c "composer install --no-interaction"
-  - sh -c "composer create-project --no-interaction --prefer-dist cakephp/app ../test-app"
-  - sh -c "cd ../test-app ; composer require loadsys/cakephp-loadsys-theme:dev-master;"
-  - sh -c "cat ./provision/append.txt >> ../test-app/config/bootstrap.php"
+  - sh -c "composer create-project --no-interaction --prefer-dist cakephp/app ~/loadsys/test-app"
+  - sh -c "cd ~/loadsys/test-app ; composer require loadsys/cakephp-loadsys-theme:dev-master;"
+  - sh -c "cat ~/loadsys/CakePHP-LoadsysTheme/provision/append.txt >> ~/loadsys/test-app/config/bootstrap.php"
 
 before_script:
   - phpenv rehash
   - mysql -e 'DROP DATABASE IF EXISTS `travis_app`; CREATE DATABASE `travis_app`;'
-  - mysql travis_app < ./provision/test-app.sql
-  - sh -c "cd ../test-app; ./bin/cake bake.bake --help"
+  - mysql travis_app < ~/loadsys/test-app/CakePHP-LoadsysTheme/provision/test-app.sql
+  - sh -c "~/loadsys/test-app/bin/cake bake.bake --help"
   # - sh -c "cd ../test-app; ./bin/cake bake.bake all --everything -t LoadsysTheme"
   # - ../test-app/vendor/bin/phpcs --config-set installed_paths vendor/loadsys/loadsys_codesniffer,vendor/cakephp/cakephp-codesniffer
 
