@@ -40,6 +40,7 @@ before_script:
   - mysql travis_app < ~/build/loadsys/CakePHP-LoadsysTheme/provision/test-app.sql
   - sh -c "~/build/loadsys/test-app/bin/cake bake.bake all --everything -t LoadsysTheme"
   - ~/build/loadsys/test-app/vendor/bin/phpcs --config-set installed_paths ~/build/loadsys/test-app/vendor/loadsys/loadsys_codesniffer,~/build/loadsys/test-app/vendor/cakephp/cakephp-codesniffer
+  - ~/build/loadsys/test-app/vendor/bin/phpcs -i
 
 script:
   - sh -c "~/build/loadsys/test-app/vendor/bin/phpcs -p --extensions=php,ctp --standard=Loadsys ~/build/loadsys/test-app/src ~/build/loadsys/test-app/tests ~/build/loadsys/test-app/config ~/build/loadsys/test-app/webroot"
