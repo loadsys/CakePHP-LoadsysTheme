@@ -42,7 +42,7 @@ before_script:
   - ~/build/loadsys/test-app/vendor/bin/phpcs --config-set installed_paths ~/build/loadsys/test-app/vendor/loadsys/loadsys_codesniffer,~/build/loadsys/test-app/vendor/cakephp/cakephp-codesniffer
 
 script:
-  - sh -c "~/build/loadsys/test-app/bin/phpcs -p --extensions=php,ctp --standard=Loadsys ~/build/loadsys/test-app/src ~/build/loadsys/test-app/tests ~/build/loadsys/test-app/config ~/build/loadsys/test-app/webroot"
+  - sh -c "~/build/loadsys/test-app/vendor/bin/phpcs -p --extensions=php,ctp --standard=Loadsys ~/build/loadsys/test-app/src ~/build/loadsys/test-app/tests ~/build/loadsys/test-app/config ~/build/loadsys/test-app/webroot"
 
 notifications:
   email: false
