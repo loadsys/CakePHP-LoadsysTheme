@@ -36,7 +36,7 @@ install:
 before_script:
   - phpenv rehash
   - mysql -e 'DROP DATABASE IF EXISTS `travis_app`; CREATE DATABASE `travis_app`;'
-  - mysql travis_app < ~/build/loadsys/test-app/CakePHP-LoadsysTheme/provision/test-app.sql
+  - mysql travis_app < ~/build/loadsys/CakePHP-LoadsysTheme/provision/test-app.sql
   - sh -c "~/build/loadsys/test-app/bin/cake bake.bake --help"
   # - sh -c "cd ../test-app; ./bin/cake bake.bake all --everything -t LoadsysTheme"
   # - ../test-app/vendor/bin/phpcs --config-set installed_paths vendor/loadsys/loadsys_codesniffer,vendor/cakephp/cakephp-codesniffer
