@@ -31,6 +31,7 @@ install:
   - sh -c "composer install --no-interaction"
   - sh -c "composer create-project --no-interaction --prefer-dist cakephp/app ../test-app"
   - sh -c "cd ../test-app ; composer require loadsys/cakephp-loadsys-theme:dev-master;"
+  - sh -c "cat ../test-app/composer.json"
 
 before_script:
   - phpenv rehash
