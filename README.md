@@ -25,6 +25,12 @@ $ composer require loadsys/cakephp-loadsys-theme:dev-master
 
 * Add this plugin to your application by adding this line to your bootstrap.php
 
+```php
+Plugin::load('LoadsysTheme');
+```
+
+* Use this Theme when baking content via the `--theme` option for the `bake` command like so:
+
 ````bash
 $ ./vendor/bin/cake bake all --theme LoadsysTheme name-of-thing
 ````
