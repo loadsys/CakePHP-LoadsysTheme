@@ -1,0 +1,44 @@
+language: php
+
+sudo: false
+
+php:
+  - 5.6
+
+# Environment Variables to set
+env:
+  global:
+    # Contains a $GITHUB_TOKEN env var for use with composer to avoid API limits.
+    - secure: "G8hdRx7YHeJYc50Iw+BE1/5Z1OZRCg3sNsDRzS4jU6/pWgW7rE9R460JJhDsrYciv19SVopkHjw/hmEi2hH+HCDo0QmcFPLaQGHr9yNPOTYt9dGRPCk3yVdVSJEGeSa2w6XJ2Up5bAvWEBoBX7cLCPKbsFeYBZS6K4p4uIjPJ6o33IRdDxSsiaNJT/19zG7pKLqnf1Gu+daHzIKHekQhoMWrEKdjFS3vmk7NL1cQ4Ko/S/ekVPMhA0+ZNfQ6cHMf25LF//ZOmggcIAbzi0QRTgJy1xYSUU2eV6tdKv8WUgDi/OZpPGBIYPZ8SJ7GUsWY5GsCrHAiQRRfDS2xgIiJlav6c8u99kz8EXtnmIB2iIjx0BzkO5QsXq5qcXngQSnnac6T7LyY69qhCMAKpjWhiHmNyL/NDi8J9fbNHUG7U8dY/N9Ihac/VkAI7ffNB2kB90Potv1klNP/e70C4Z6p+aMAnm6SaI74WrhjqdiEwiM3KcbeYYl/1XOGSHgfrPSQrD1qYcVoupCrZd0lxDHaq6PavR9McomFTF4eHTiNZGvKDjWH298MwdylZwZK36CDpj7LhXuJPQmuVsQ4V+zxGTVeUsI4CyILxPFXc6Cepgl69LfBF9gbAFtJUHJ4KdXllOSrjy4Ga9w3vwEagEGWlZHX5obItETQllOZitckp0o="
+
+# Services to Enable
+services:
+  - mysql
+
+# Branches to be built or not
+branches:
+  # Blacklist these branches
+  except:
+    - master
+    - staging
+    - gh-pages
+
+before_install:
+  - sh -c "composer self-update"
+
+install:
+  - sh -c "composer config -g github-oauth.github.com $GITHUB_TOKEN"
+  - sh -c "composer install --no-interaction"
+  - sh -c "composer create-project --no-interaction --prefer-dist cakephp/app ../test-app"
+
+before_script:
+  - phpenv rehash
+  - mysql -e 'DROP DATABASE IF EXISTS `travis_app`; CREATE DATABASE `travis_app`;'
+  - vendor/bin/phpcs --config-set installed_paths vendor/loadsys/loadsys_codesniffer,vendor/cakephp/cakephp-codesniffer
+
+script:
+  # - sh -c "bin/phpcs -p --extensions=php --standard=Loadsys ./src ./tests ./config ./webroot"
+  # - sh -c "bin/phpunit"
+
+notifications:
+  email: false
