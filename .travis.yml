@@ -35,7 +35,8 @@ install:
 before_script:
   - phpenv rehash
   - mysql -e 'DROP DATABASE IF EXISTS `travis_app`; CREATE DATABASE `travis_app`;'
-  - vendor/bin/phpcs --config-set installed_paths vendor/loadsys/loadsys_codesniffer,vendor/cakephp/cakephp-codesniffer
+  - mysql travis_app < ./tests/provision/test-app.sql
+  - ../test-app/vendor/bin/phpcs --config-set installed_paths vendor/loadsys/loadsys_codesniffer,vendor/cakephp/cakephp-codesniffer
 
 script:
   # - sh -c "bin/phpcs -p --extensions=php --standard=Loadsys ./src ./tests ./config ./webroot"
