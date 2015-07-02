@@ -32,6 +32,7 @@ install:
   - sh -c "composer create-project --no-interaction --prefer-dist cakephp/app ~/build/loadsys/test-app"
   - sh -c "cd ~/build/loadsys/test-app ; composer require loadsys/cakephp-loadsys-theme:dev-master;"
   - sh -c "cat ~/build/loadsys/CakePHP-LoadsysTheme/provision/bootstrap-append.txt >> ~/build/loadsys/test-app/config/bootstrap.php"
+  - sh -c "mv ~/build/loadsys/CakePHP-LoadsysTheme/provision/test-app.php >> ~/build/loadsys/test-app/config/app.php"
 
 before_script:
   - phpenv rehash
