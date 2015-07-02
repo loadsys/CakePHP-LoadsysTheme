@@ -36,6 +36,7 @@ before_script:
   - phpenv rehash
   - mysql -e 'DROP DATABASE IF EXISTS `travis_app`; CREATE DATABASE `travis_app`;'
   - mysql travis_app < ./provision/test-app.sql
+  - sh -c "cd ../test-app; ./bin/cake bake.bake all --everything -t LoadsysTheme"
   - ../test-app/vendor/bin/phpcs --config-set installed_paths vendor/loadsys/loadsys_codesniffer,vendor/cakephp/cakephp-codesniffer
 
 script:
