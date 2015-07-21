@@ -13,6 +13,27 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 use Cake\Utility\Inflector;
+
+// List of Behaviors assumed to be provided by the parent [App]Table.
+$appTableBehaviors = [
+	'Timestamp',
+	'CreatorModifier.CreatorModifier',
+];
+
+// List of Model associations assumed to be provided by the parent [App]Table.
+$appTableAssociations = [
+	'Creators',
+	'Modifiers',
+];
+
+// List of [field => rule] validations assumed to be provided by the parent [App]Table.
+$appTableValidations = [
+	'id' => 'uuid',
+	'created' => 'date',
+	'creator_id' => 'uuid',
+	'modified' => 'date',
+	'modifier_id' => 'uuid',
+];
 %>
 <?php
 namespace <%= $namespace %>\Model\Table;
@@ -20,9 +41,9 @@ namespace <%= $namespace %>\Model\Table;
 <%
 $uses = [
 	"use $namespace\\Model\\Entity\\$entity;",
+	"use $namespace\\Model\\Table\\Table;",
 	'use Cake\ORM\Query;',
 	'use Cake\ORM\RulesChecker;',
-	'use Cake\ORM\Table;',
 	'use Cake\Validation\Validator;'
 ];
 sort($uses);
@@ -50,6 +71,8 @@ class <%= $name %>Table extends Table {
 	 * @return void
 	 */
 	public function initialize(array $config) {
+		parent::initialize($config);
+
 <% if (!empty($table)): %>
 		$this->table('<%= $table %>');
 <% endif %>
@@ -59,15 +82,18 @@ class <%= $name %>Table extends Table {
 <% if (!empty($primaryKey)): %>
 <% if (count($primaryKey) > 1): %>
 		$this->primaryKey([<%= $this->Bake->stringifyList((array)$primaryKey, ['indent' => false]) %>]);
-<% else: %>
+<% elseif (current((array)$primaryKey) !== 'id'): %>
 		$this->primaryKey('<%= current((array)$primaryKey) %>');
 <% endif %>
 <% endif %>
-<% foreach ($behaviors as $behavior => $behaviorData): %>
+
+<% foreach ($behaviors as $behavior => $behaviorData):
+	if (in_array($behavior, $appTableBehaviors)) { continue; } %>
 		$this->addBehavior('<%= $behavior %>'<%= $behaviorData ? ", [" . implode(', ', $behaviorData) . ']' : '' %>);
 <% endforeach %>
 <% foreach ($associations as $type => $assocs): %>
 <% foreach ($assocs as $assoc):
+	if (in_array($assoc['alias'], $appTableAssociations)) { continue; }
 	$alias = $assoc['alias'];
 	unset($assoc['alias']);
 %>
@@ -84,16 +110,21 @@ class <%= $name %>Table extends Table {
 	 * @return \Cake\Validation\Validator
 	 */
 	public function validationDefault(Validator $validator) {
+		$validator = parent::validationDefault($validator);
+
 		$validator
-<% $validationMethods = []; %>
 <%
+$validationMethods = [];
 $firstField = true;
 foreach ($validation as $field => $rules):
+	if (array_key_exists($field, $appTableValidations)) { continue; }
+
 	if ($firstField !== true):
 		$validationMethods[] = "\n\t\t\$validator";
 	endif;
 
 	foreach ($rules as $ruleName => $rule):
+
 		if ($rule['rule'] && !isset($rule['provider'])):
 			$validationMethods[] = sprintf(
 				"->add('%s', '%s', ['rule' => '%s'])",
@@ -139,7 +170,11 @@ foreach ($validation as $field => $rules):
 	$validationMethods[] = array_pop($validationMethods) . ";";
 endforeach;
 %>
-<%= "\t\t\t" . implode("\n\t\t\t", $validationMethods) %>
+<%= "\t\t\t" . preg_replace(
+	"|^\t\t\t$|m",
+	'',
+	implode("\n\t\t\t", $validationMethods)
+) %>
 
 
 		return $validator;
@@ -155,9 +190,13 @@ endforeach;
 	 * @return \Cake\ORM\RulesChecker
 	 */
 	public function buildRules(RulesChecker $rules) {
-	<%- foreach ($rulesChecker as $field => $rule): %>
+		$rules = parent::buildRules($rules);
+
+	<%- foreach ($rulesChecker as $field => $rule):
+		if (array_key_exists($field, $appTableValidations)) { continue; } %>
 		$rules->add($rules-><%= $rule['name'] %>(['<%= $field %>']<%= !empty($rule['extra']) ? ", '$rule[extra]'" : '' %>));
 	<%- endforeach; %>
+
 		return $rules;
 	}
 <% endif; %>
