@@ -71,7 +71,7 @@ class <%= $name %>Table extends Table {
 	$alias = $assoc['alias'];
 	unset($assoc['alias']);
 %>
-		$this-><%= $type %>('<%= $alias %>', [<%= $this->Bake->stringifyList($assoc, ['indent' => 3]) %>]);
+		$this-><%= $type %>('<%= $alias %>', [<%= str_replace('    ', "\t", $this->Bake->stringifyList($assoc, ['indent' => 3])) %>]);
 <% endforeach %>
 <% endforeach %>
 	}
@@ -90,7 +90,7 @@ class <%= $name %>Table extends Table {
 $firstField = true;
 foreach ($validation as $field => $rules):
 	if ($firstField !== true):
-		$validationMethods[] = "\n        \$validator";
+		$validationMethods[] = "\n\t\t\$validator";
 	endif;
 
 	foreach ($rules as $ruleName => $rule):
@@ -139,7 +139,7 @@ foreach ($validation as $field => $rules):
 	$validationMethods[] = array_pop($validationMethods) . ";";
 endforeach;
 %>
-<%= "            " . implode("\n            ", $validationMethods) %>
+<%= "\t\t\t" . implode("\n\t\t\t", $validationMethods) %>
 
 
 		return $validator;

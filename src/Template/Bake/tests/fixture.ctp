@@ -53,7 +53,7 @@ class <%= $name %>Fixture extends TestFixture {
 	 * @var array
 	 */
 	// @codingStandardsIgnoreStart
-	public $fields = <%= $schema %>;
+	public $fields = <%= str_replace('    ', "\t", $schema) %>;
 	// @codingStandardsIgnoreEnd
 <% endif; %>
 <% if ($records): %>
@@ -63,6 +63,6 @@ class <%= $name %>Fixture extends TestFixture {
 	 *
 	 * @var array
 	 */
-	public $records = <%= $records %>;
+	public $records = <%= str_replace('    ', "\t", $records) %>;
 <% endif; %>
 }
