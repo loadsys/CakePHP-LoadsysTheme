@@ -31,6 +31,7 @@ $compact = ["'" . $singularName . "'"];
 				$this->Flash->error(__('The <%= strtolower($singularHumanName) %> could not be saved. Please, try again.'));
 			}
 		}
+
 <%
 		$associations = array_merge(
 			$this->Bake->aliasExtractor($modelObj, 'BelongsTo'),

@@ -42,7 +42,7 @@ class <%= $name %> extends Entity {
 	 *
 	 * @var array
 	 */
-	protected $_hidden = [<%= $this->Bake->stringifyList($hidden) %>];
+	protected $_hidden = [<%= str_replace('    ', "\t", $this->Bake->stringifyList($hidden)) %>];
 <% endif %>
 <% if (empty($fields) && empty($hidden)): %>
 
