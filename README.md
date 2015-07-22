@@ -29,6 +29,8 @@ $ composer require loadsys/cakephp-loadsys-theme:dev-master
 $ ./vendor/bin/cake bake all --theme LoadsysTheme name-of-thing
 ````
 
+This plugin does one other thing, `Table` Classes are baked to extend from a parent [App]Table class. The AppTable class it depends upon is provided from the [Loadsys CakePHP Skeleton](https://github.com/loadsys/CakePHP-Skeleton). Any Table Classes baked in which you wish to change this either bake using the default theme or modify the classes post baking.
+
 ## Contributing
 
 ### Reporting Issues
