@@ -11,17 +11,20 @@
 
 CakePHP 3.x bake generation theme that matches Loadsys' code sniffer standards.
 
+
 ## Requirements
+
+* CakePHP 3.x
+
 
 ## Installation
 
-### Composer
-
 ````bash
-$ composer require loadsys/cakephp-loadsys-theme:dev-master
+$ composer require --dev loadsys/cakephp-loadsys-theme:dev-master
 ````
 
-## Usage ##
+
+## Usage
 
 * Add this plugin to your application by adding this line to your bootstrap.php
 
@@ -29,7 +32,30 @@ $ composer require loadsys/cakephp-loadsys-theme:dev-master
 $ ./vendor/bin/cake bake all --theme LoadsysTheme name-of-thing
 ````
 
-This plugin does one other thing, `Table` Classes are baked to extend from a parent [App]Table class. The AppTable class it depends upon is provided from the [Loadsys CakePHP Skeleton](https://github.com/loadsys/CakePHP-Skeleton). Any Table Classes baked in which you wish to change this either bake using the default theme or modify the classes post baking.
+## Notable Changes
+
+### Tabs instead of spaces
+
+Loadsys has chosen to ignore the requirement of PSR-2 to use spaces for indenting. We've found tabs to be more convenient, and we're keeping them. If you disagree, that's fine-- this plugin isn't going to be much use to you.
+
+### K&R/1TBS Braces
+
+We're also sticking to [K&R style](https://en.wikipedia.org/wiki/Indent_style#K.26R_style) braces for everything.
+
+```php
+	public function foo() {
+		echo 'hi';
+	}
+```
+
+### AppTable
+
+The core team believes that using AppController and AppView continues to provide significant value to the framework ([thread](https://github.com/cakephp/cakephp/issues/4421#issuecomment-53759646)), but does not feel that hold true for AppTable (or AppEntity). We disagree.
+
+`Table` classes baked by this plugin extend from a parent [App]Table class (conveniently still called `Table` thanks to PHP namespaces.) The [Table](https://github.com/loadsys/CakePHP-Skeleton/tree/master/src/Model/Table/Table.php) class it depends upon is provided from the [Loadsys CakePHP Skeleton](https://github.com/loadsys/CakePHP-Skeleton). As in Cake 2, it's safe to completely ignore this file, provided it is at least present in your app. If you need a Table class baked in which you wish to change this, you must either bake using Cake's default theme or modify the classes after baking them.
+
+Additionally, because our `table.ctp` template assumes that our Skeleton's base Table class will be used, we suppress certain parts of the table baking process. The [App]Table class sets up the primary key, adds the Timestamp and CreatorModifier behaviors, defines two default associations to Creators and Modifiers in the Users table, and suppresses validation for the 5 related fields. It would therefore be redundant and defeat the purpose of the based Table class to bake tables that repeated these steps, so they are skipped.
+
 
 ## Contributing
 
@@ -40,6 +66,7 @@ Please use [GitHub Isuses](https://github.com/loadsys/CakePHP-LoadsysTheme/issue
 ### Development
 
 When developing this plugin, please fork and issue a PR for any new development.
+
 
 ## License ##
 
