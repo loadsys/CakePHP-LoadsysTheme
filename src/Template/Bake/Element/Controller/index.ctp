@@ -15,7 +15,7 @@
 %>
 
 	/**
-	 * Index method
+	 * Paginate through multiple <%= $pluralName %> records.
 	 *
 	 * @return void
 	 */

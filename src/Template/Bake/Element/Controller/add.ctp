@@ -16,9 +16,9 @@ $compact = ["'" . $singularName . "'"];
 %>
 
 	/**
-	 * Add method
+	 * Add a single <%= $singularName %> record.
 	 *
-	 * @return void Redirects on successful add, renders view otherwise.
+	 * @return void|\Cake\Network\Response Redirects on successful add, renders view otherwise.
 	 */
 	public function add() {
 		$<%= $singularName %> = $this-><%= $currentModelName %>->newEntity();

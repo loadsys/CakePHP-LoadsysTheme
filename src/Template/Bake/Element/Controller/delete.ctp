@@ -15,10 +15,10 @@
 %>
 
 	/**
-	 * Delete method
+	 * Delete a single <%= $singularHumanName %> record.
 	 *
 	 * @param string|null $id <%= $singularHumanName %> id.
-	 * @return void Redirects to index.
+	 * @return \Cake\Network\Response Redirects to index.
 	 * @throws \Cake\Network\Exception\NotFoundException When record not found.
 	 */
 	public function delete($id = null) {
