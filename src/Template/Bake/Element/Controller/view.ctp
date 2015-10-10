@@ -21,7 +21,7 @@ $allAssociations = array_merge(
 %>
 
 	/**
-	 * View method
+	 * View a single <%= $singularHumanName %> record.
 	 *
 	 * @param string|null $id <%= $singularHumanName %> id.
 	 * @return void
