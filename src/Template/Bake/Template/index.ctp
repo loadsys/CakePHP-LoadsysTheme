@@ -14,11 +14,15 @@
  */
 use Cake\Utility\Inflector;
 
+$ignoreFields = ['id', 'modified', 'creator_id', 'modifier_id'];
+
 $fields = collection($fields)
 	->filter(function($field) use ($schema) {
 		return !in_array($schema->columnType($field), ['binary', 'text']);
 	})
 	->take(7);
+
+echo $this->element('breadcrumbs');
 %>
 <div class="actions columns large-2 medium-3">
 	<h3><?= __('Actions') ?></h3>
@@ -45,6 +49,7 @@ $fields = collection($fields)
 	<thead>
 		<tr>
 	<% foreach ($fields as $field): %>
+		<% if (in_array($field, $ignoreFields)) { continue; } %>
 		<th><?= $this->Paginator->sort('<%= $field %>') ?></th>
 	<% endforeach; %>
 		<th class="actions"><?= __('Actions') ?></th>
@@ -53,7 +58,8 @@ $fields = collection($fields)
 	<tbody>
 	<?php foreach ($<%= $pluralVar %> as $<%= $singularVar %>): ?>
 		<tr>
-<%        foreach ($fields as $field) {
+<%		foreach ($fields as $field) {
+			if (in_array($field, $ignoreFields)) { continue; }
 			$isKey = false;
 			if (!empty($associations['BelongsTo'])) {
 				foreach ($associations['BelongsTo'] as $alias => $details) {
@@ -69,24 +75,69 @@ $fields = collection($fields)
 				}
 			}
 			if ($isKey !== true) {
-				if (!in_array($schema->columnType($field), ['integer', 'biginteger', 'decimal', 'float'])) {
+				if ($field == 'created') {
 %>
-			<td><?= h($<%= $singularVar %>-><%= $field %>) ?></td>
+			<td>
+				<?= $this->Html->tooltipCreateDate($<%= $singularVar %>-><%= $field %>, $<%= $singularVar %>->modified, $<%= $singularVar %>->has('modifier') ? $<%= $singularVar %>->modifier->full_name : '') ?>
+			</td>
+<%
+				} elseif (
+					in_array($schema->columnType($field), ['boolean'])
+				) {
+%>
+			<td>
+				<?= $this->Html->yesNo($<%= $singularVar %>-><%= $field %>) ?>
+			</td>
+<%
+				} elseif (
+					in_array($schema->columnType($field), ['date'])
+				) {
+%>
+			<td>
+				<?= $this->Html->niceShortDateOnly($<%= $singularVar %>-><%= $field %>) ?>
+			</td>
+<%
+				} elseif (
+					in_array($schema->columnType($field), ['datetime'])
+				) {
+%>
+			<td>
+				<?= $this->Html->niceShort($<%= $singularVar %>-><%= $field %>) ?>
+			</td>
+<%
+				} elseif (
+					!in_array($schema->columnType($field), ['integer', 'biginteger', 'decimal', 'float'])
+				) {
+%>
+			<td>
+				<?= h($<%= $singularVar %>-><%= $field %>) ?>
+			</td>
+<%
+				} elseif (
+					in_array($schema->columnType($field), ['decimal'])
+				) {
+%>
+			<td>
+				<?= $this->Number->currency($<%= $singularVar %>-><%= $field %>) ?>
+			</td>
 <%
 				} else {
 %>
-			<td><?= $this->Number->format($<%= $singularVar %>-><%= $field %>) ?></td>
+			<td>
+				<?= $this->Number->format($<%= $singularVar %>-><%= $field %>) ?>
+			</td>
 <%
 				}
 			}
 		}
 
 		$pk = '$' . $singularVar . '->' . $primaryKey[0];
+		$display = '$' . $singularVar . '->' . $displayField;
 %>
 			<td class="actions">
 				<?= $this->Html->link(__('View'), ['action' => 'view', <%= $pk %>]) ?>
 				<?= $this->Html->link(__('Edit'), ['action' => 'edit', <%= $pk %>]) ?>
-				<?= $this->Form->postLink(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>)]) ?>
+				<?= $this->Form->postLink(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $display %>)]) ?>
 			</td>
 		</tr>
 

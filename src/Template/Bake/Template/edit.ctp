@@ -13,4 +13,5 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+echo $this->element('breadcrumbs');
 echo $this->element('form');
