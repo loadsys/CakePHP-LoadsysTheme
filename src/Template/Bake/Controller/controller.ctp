@@ -19,6 +19,7 @@
 use Cake\Utility\Inflector;
 
 $defaultModel = $name;
+$ignoreAssociations = ['Creators', 'Modifiers'];
 %>
 <?php
 namespace <%= $namespace %>\Controller<%= $prefix %>;
@@ -41,7 +42,7 @@ class <%= $name %>Controller extends AppController {
 echo $this->Bake->arrayProperty('helpers', $helpers, ['indent' => false]);
 echo $this->Bake->arrayProperty('components', $components, ['indent' => false]);
 foreach($actions as $action) {
-	echo $this->element('Controller/' . $action);
+	echo $this->element('Controller/' . $action, compact('ignoreAssociations'));
 }
 %>
 }

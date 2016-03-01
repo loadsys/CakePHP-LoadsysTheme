@@ -14,6 +14,9 @@
  */
 use Cake\Utility\Inflector;
 
+$ignoreFields = ['created', 'modified'];
+$ignoreAssociations = ['Creators', 'Modifiers'];
+
 $associations += ['BelongsTo' => [], 'HasOne' => [], 'HasMany' => [], 'BelongsToMany' => []];
 $immediateAssociations = $associations['BelongsTo'] + $associations['HasOne'];
 $associationFields = collection($fields)
@@ -50,31 +53,10 @@ $groupedFields = collection($fields)
 
 $groupedFields += ['number' => [], 'string' => [], 'boolean' => [], 'date' => [], 'text' => []];
 $pk = "\$$singularVar->{$primaryKey[0]}";
+
+echo $this->element('breadcrumbs');
 %>
-<div class="actions columns large-2 medium-3">
-	<h3><?= __('Actions') ?></h3>
-	<ul class="side-nav">
-		<li><?= $this->Html->link(__('Edit <%= $singularHumanName %>'), ['action' => 'edit', <%= $pk %>]) ?> </li>
-		<li><?= $this->Form->postLink(__('Delete <%= $singularHumanName %>'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>)]) ?> </li>
-		<li><?= $this->Html->link(__('List <%= $pluralHumanName %>'), ['action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('New <%= $singularHumanName %>'), ['action' => 'add']) ?> </li>
-<%
-	$done = [];
-	foreach ($associations as $type => $data) {
-		foreach ($data as $alias => $details) {
-			if ($details['controller'] !== $this->name && !in_array($details['controller'], $done)) {
-%>
-		<li><?= $this->Html->link(__('List <%= $this->_pluralHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'index']) ?> </li>
-		<li><?= $this->Html->link(__('New <%= Inflector::humanize(Inflector::singularize(Inflector::underscore($alias))) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'add']) ?> </li>
-<%
-				$done[] = $details['controller'];
-			}
-		}
-	}
-%>
-	</ul>
-</div>
-<div class="<%= $pluralVar %> view large-10 medium-9 columns">
+<div class="<%= $pluralVar %> view large-12 medium-12 columns">
 	<h2><?= h($<%= $singularVar %>-><%= $displayField %>) ?></h2>
 	<div class="row">
 <% if ($groupedFields['string']) : %>
@@ -102,7 +84,8 @@ $pk = "\$$singularVar->{$primaryKey[0]}";
 <% endif; %>
 <% if ($groupedFields['date']) : %>
 		<div class="large-2 columns dates end">
-<% foreach ($groupedFields['date'] as $field) : %>
+<% foreach ($groupedFields['date'] as $field) :
+	if (in_array($field, $ignoreFields)) { continue; } %>
 			<h6 class="subheader"><%= "<%= __('" . Inflector::humanize($field) . "') %>" %></h6>
 			<p><?= h($<%= $singularVar %>-><%= $field %>) ?></p>
 <% endforeach; %>
@@ -131,6 +114,7 @@ $pk = "\$$singularVar->{$primaryKey[0]}";
 <%
 $relations = $associations['HasMany'] + $associations['BelongsToMany'];
 foreach ($relations as $alias => $details):
+	if (in_array($alias, $ignoreAssociations)) { continue; }
 	$otherSingularVar = Inflector::variable($alias);
 	$otherPluralHumanName = Inflector::humanize(Inflector::underscore($details['controller']));
 	%>
@@ -140,7 +124,8 @@ foreach ($relations as $alias => $details):
 	<?php if (!empty($<%= $singularVar %>-><%= $details['property'] %>)): ?>
 	<table cellpadding="0" cellspacing="0">
 		<tr>
-<% foreach ($details['fields'] as $field): %>
+<% foreach ($details['fields'] as $field):
+	if (in_array($field, $ignoreFields)) { continue; } %>
 			<th><?= __('<%= Inflector::humanize($field) %>') ?></th>
 <% endforeach; %>
 			<th class="actions"><?= __('Actions') ?></th>

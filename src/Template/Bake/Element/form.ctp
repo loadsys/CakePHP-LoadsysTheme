@@ -14,40 +14,14 @@
  */
 use Cake\Utility\Inflector;
 
+$ignoreFields = ['creator_id', 'modifier_id'];
+
 $fields = collection($fields)
 	->filter(function($field) use ($schema) {
 		return $schema->columnType($field) !== 'binary';
 	});
 %>
-<div class="actions columns large-2 medium-3">
-	<h3><?= __('Actions') ?></h3>
-	<ul class="side-nav">
-<% if (strpos($action, 'add') === false): %>
-		<li><?= $this->Form->postLink(
-				__('Delete'),
-				['action' => 'delete', $<%= $singularVar %>-><%= $primaryKey[0] %>],
-				['confirm' => __('Are you sure you want to delete # {0}?', $<%= $singularVar %>-><%= $primaryKey[0] %>)]
-			)
-		?></li>
-<% endif; %>
-		<li><?= $this->Html->link(__('List <%= $pluralHumanName %>'), ['action' => 'index']) ?></li>
-<%
-		$done = [];
-		foreach ($associations as $type => $data) {
-			foreach ($data as $alias => $details) {
-				if ($details['controller'] !== $this->name && !in_array($details['controller'], $done)) {
-%>
-		<li><?= $this->Html->link(__('List <%= $this->_pluralHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'index']) %></li>
-		<li><?= $this->Html->link(__('New <%= $this->_singularHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'add']) %></li>
-<%
-					$done[] = $details['controller'];
-				}
-			}
-		}
-%>
-	</ul>
-</div>
-<div class="<%= $pluralVar %> form large-10 medium-9 columns">
+<div class="<%= $pluralVar %> form large-12 medium-12 columns">
 	<?= $this->Form->create($<%= $singularVar %>) ?>
 	<fieldset>
 		<legend><?= __('<%= Inflector::humanize($action) %> <%= $singularHumanName %>') ?></legend>
@@ -55,6 +29,9 @@ $fields = collection($fields)
 <%
 		foreach ($fields as $field) {
 			if (in_array($field, $primaryKey)) {
+				continue;
+			}
+			if (in_array($field, $ignoreFields)) {
 				continue;
 			}
 			if (isset($keyFields[$field])) {

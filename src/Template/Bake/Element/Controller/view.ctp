@@ -18,6 +18,7 @@ $allAssociations = array_merge(
 	$this->Bake->aliasExtractor($modelObj, 'HasOne'),
 	$this->Bake->aliasExtractor($modelObj, 'HasMany')
 );
+//$allAssociations = array_diff($allAssociations, $ignoreAssociations);
 %>
 
 	/**
