@@ -48,8 +48,8 @@ echo $this->element('breadcrumbs');
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 		<tr>
-	<% foreach ($fields as $field): %>
-		<% if (in_array($field, $ignoreFields)) { continue; } %>
+	<% foreach ($fields as $field):
+		if (in_array($field, $ignoreFields)) { continue; } %>
 		<th><?= $this->Paginator->sort('<%= $field %>') ?></th>
 	<% endforeach; %>
 		<th class="actions"><?= __('Actions') ?></th>

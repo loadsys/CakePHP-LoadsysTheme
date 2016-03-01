@@ -83,8 +83,8 @@ echo $this->element('breadcrumbs');
 <% endif; %>
 <% if ($groupedFields['date']) : %>
 		<div class="large-2 columns dates end">
-<% foreach ($groupedFields['date'] as $field) : %>
-			<% if (in_array($field, $ignoreFields)) { continue; } %>
+<% foreach ($groupedFields['date'] as $field) :
+	if (in_array($field, $ignoreFields)) { continue; } %>
 			<h6 class="subheader"><%= "<%= __('" . Inflector::humanize($field) . "') %>" %></h6>
 			<p><?= h($<%= $singularVar %>-><%= $field %>) ?></p>
 <% endforeach; %>
