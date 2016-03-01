@@ -15,6 +15,7 @@
 use Cake\Utility\Inflector;
 
 $ignoreFields = ['created', 'modified'];
+$ignoreAssociations = ['Creators', 'Modifiers'];
 
 $associations += ['BelongsTo' => [], 'HasOne' => [], 'HasMany' => [], 'BelongsToMany' => []];
 $immediateAssociations = $associations['BelongsTo'] + $associations['HasOne'];
@@ -113,6 +114,7 @@ echo $this->element('breadcrumbs');
 <%
 $relations = $associations['HasMany'] + $associations['BelongsToMany'];
 foreach ($relations as $alias => $details):
+	if (in_array($alias, $ignoreAssociations)) { continue; }
 	$otherSingularVar = Inflector::variable($alias);
 	$otherPluralHumanName = Inflector::humanize(Inflector::underscore($details['controller']));
 	%>
@@ -122,7 +124,8 @@ foreach ($relations as $alias => $details):
 	<?php if (!empty($<%= $singularVar %>-><%= $details['property'] %>)): ?>
 	<table cellpadding="0" cellspacing="0">
 		<tr>
-<% foreach ($details['fields'] as $field): %>
+<% foreach ($details['fields'] as $field):
+	if (in_array($field, $ignoreFields)) { continue; } %>
 			<th><?= __('<%= Inflector::humanize($field) %>') ?></th>
 <% endforeach; %>
 			<th class="actions"><?= __('Actions') ?></th>
