@@ -20,13 +20,19 @@ CakePHP 3.x bake generation theme that matches Loadsys' code sniffer standards.
 ## Installation
 
 ````bash
-$ composer require --dev loadsys/cakephp-loadsys-theme:dev-master
+$ composer require loadsys/cakephp-loadsys-theme:~1.0
 ````
 
 
 ## Usage
 
 * Add this plugin to your application by adding this line to your bootstrap.php
+
+````php
+CakePlugin::load('LoadsysTheme');
+````
+
+* To use when baking, use the CLI option `--theme LoadsysTheme` like so
 
 ````bash
 $ ./vendor/bin/cake bake all --theme LoadsysTheme name-of-thing
@@ -36,7 +42,7 @@ $ ./vendor/bin/cake bake all --theme LoadsysTheme name-of-thing
 
 ### Tabs instead of spaces
 
-Loadsys has chosen to ignore the requirement of PSR-2 to use spaces for indenting. We've found tabs to be more convenient, and we're keeping them. If you disagree, that's fine-- this plugin isn't going to be much use to you.
+Loadsys has chosen to ignore the requirement of PSR-2 to use spaces for indenting. We've found tabs to be more convenient, and we're keeping them. If you disagree, that's fine -- this plugin isn't going to be much use to you.
 
 ### K&R/1TBS Braces
 
@@ -79,4 +85,4 @@ When developing this plugin, please fork and issue a PR for any new development.
 
 ## Copyright ##
 
-[Loadsys Web Strategies](http://www.loadsys.com) 2015
+[Loadsys Web Strategies](http://www.loadsys.com) 2016
