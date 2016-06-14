@@ -16,7 +16,8 @@ EventManager::instance()->on('Bake.initialize', function (Event $event) {
 	$view = $event->subject;
 
 	// Load our overridden BakeHelper class.
-	$view->loadHelper('LoadsysTheme.Bake', []);
+	$view->helpers()->unload('Bake');
+	$view->loadHelper('LoadsysTheme.Bake');
 });
 
 /**
