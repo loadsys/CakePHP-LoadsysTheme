@@ -86,7 +86,6 @@ class <%= $name %>Table extends Table {
 		$this->primaryKey('<%= current((array)$primaryKey) %>');
 <% endif %>
 <% endif %>
-
 <% foreach ($behaviors as $behavior => $behaviorData):
 	if (in_array($behavior, $appTableBehaviors)) { continue; } %>
 		$this->addBehavior('<%= $behavior %>'<%= $behaviorData ? ", [" . implode(', ', $behaviorData) . ']' : '' %>);

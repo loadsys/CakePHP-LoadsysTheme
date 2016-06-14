@@ -25,17 +25,34 @@ if ($hasUnsignedPk) {
 }
 %>
 <?php
+/**
+ * <%= $name %> Migration
+ */
 use Migrations\AbstractMigration;
 
-class <%= $name %> extends AbstractMigration
-{
+/**
+ * \<%= $name %>
+ */
+class <%= $name %> extends AbstractMigration {
     <%- if (!$autoId): %>
 
+	/**
+	 * Auto ID.
+	 *
+	 * @var bool
+	 */
     public $autoId = false;
     <%- endif; %>
 
-    public function up()
-    {
+	/**
+	 * Up Method.
+	 *
+	 * More information on this method is available here:
+	 * http://docs.phinx.org/en/latest/migrations.html#the-up-method
+	 *
+	 * @return void
+	 */
+    public function up() {
         <%- foreach ($data as $tableName => $tableDiff):
             $hasRemoveFK = !empty($tableDiff['constraints']['remove']) || !empty($tableDiff['indexes']['remove']);
         %>
@@ -125,8 +142,15 @@ class <%= $name %> extends AbstractMigration
         <%- endif; %>
     }
 
-    public function down()
-    {
+	/**
+	 * Down Method.
+	 *
+	 * More information on this method is available here:
+	 * http://docs.phinx.org/en/latest/migrations.html#the-down-method
+	 *
+	 * @return void
+	 */
+    public function down() {
         <%- $constraints = [];
         $emptyLine = false;
         if (!empty($this->Migration->returnedData['dropForeignKeys'])):

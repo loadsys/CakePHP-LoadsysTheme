@@ -14,32 +14,33 @@
  */
 %>
 <?php
-use Phinx\Seed\AbstractSeed;
-
 /**
  * <%= $name %> seed.
  */
-class <%= $name %>Seed extends AbstractSeed
-{
-    /**
-     * Run Method.
-     *
-     * Write your database seeder using this method.
-     *
-     * More information on writing seeders is available here:
-     * http://docs.phinx.org/en/latest/seeding.html
-     *
-     * @return void
-     */
-    public function run()
-    {
+use Phinx\Seed\AbstractSeed;
+
+/**
+ * \<%= $name %>
+ */
+class <%= $name %>Seed extends AbstractSeed {
+	/**
+	 * Run Method.
+	 *
+	 * Write your database seeder using this method.
+	 *
+	 * More information on writing seeders is available here:
+	 * http://docs.phinx.org/en/latest/seeding.html
+	 *
+	 * @return void
+	 */
+	public function run() {
 <% if ($records): %>
-        $data = <%= $records %>;
+		$data = <%= $records %>;
 <% else: %>
-        $data = [];
+		$data = [];
 <% endif; %>
 
-        $table = $this->table('<%= $table %>');
-        $table->insert($data)->save();
-    }
+		$table = $this->table('<%= $table %>');
+		$table->insert($data)->save();
+	}
 }
