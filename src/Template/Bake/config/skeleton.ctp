@@ -54,30 +54,27 @@ class <%= $name %> extends AbstractMigration {
 		<%= "\$table->$columnMethod('" . $column . "');"; %>
 <% endforeach; %>
 <% foreach ($columns['indexes'] as $column => $config): %>
-		<%= "\$table->$indexMethod([" . $this->Migration->stringifyList($config['columns']) . ");"; %>
+		<%= "\$table->$indexMethod([" . $this->Bake->stringifyList($config['columns']) . ");"; %>
 <% endforeach; %>
 <% else : %>
 <% foreach ($columns['fields'] as $column => $config): %>
 		$table-><%= $columnMethod %>('<%= $column %>', '<%= $config['columnType'] %>', [<%
 				$columnOptions = $config['options'];
 				$columnOptions = array_intersect_key($columnOptions, $wantedOptions);
-				if (empty($columnOptions['comment'])) {
-					unset($columnOptions['comment']);
-				}
-				echo $this->Migration->stringifyList($columnOptions, ['indent' => 3]);
+				echo $this->Bake->stringifyList($columnOptions, ['indent' => 3]);
 			%>]);
 <% endforeach; %>
 <% foreach ($columns['indexes'] as $column => $config): %>
 		$table-><%= $indexMethod %>([<%=
-				$this->Migration->stringifyList($config['columns'], ['indent' => 3])
+				$this->Bake->stringifyList($config['columns'], ['indent' => 3])
 				%>], [<%
 				$options = [];
-				echo $this->Migration->stringifyList($config['options'], ['indent' => 3]);
+				echo $this->Bake->stringifyList($config['options'], ['indent' => 3]);
 			%>]);
 <% endforeach; %>
 <% if ($tableMethod === 'create' && !empty($columns['primaryKey'])): %>
 		$table->addPrimaryKey([<%=
-				$this->Migration->stringifyList($columns['primaryKey'], ['indent' => 3])
+				$this->Bake->stringifyList($columns['primaryKey'], ['indent' => 3])
 				%>]);
 <% endif; %>
 <% endif; %>
