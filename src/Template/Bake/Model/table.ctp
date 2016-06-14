@@ -97,7 +97,7 @@ class <%= $name %>Table extends Table {
 	$alias = $assoc['alias'];
 	unset($assoc['alias']);
 %>
-		$this-><%= $type %>('<%= $alias %>', [<%= str_replace('    ', "\t", $this->Bake->stringifyList($assoc, ['indent' => 3])) %>]);
+		$this-><%= $type %>('<%= $alias %>', [<%= $this->Bake->stringifyList($assoc, ['indent' => 3]) %>]);
 <% endforeach %>
 <% endforeach %>
 	}

@@ -26,6 +26,9 @@ if ($isController) {
 sort($uses);
 %>
 <?php
+/**
+ * Tests for the <%= $fullClassName %> class.
+ */
 namespace <%= $baseNamespace; %>\Test\TestCase\<%= $subNamespace %>;
 
 <% foreach ($uses as $dependency): %>
@@ -33,7 +36,7 @@ use <%= $dependency; %>;
 <% endforeach; %>
 
 /**
- * <%= $fullClassName %> Test Case
+ * <%= $baseNamespace; %>\Test\TestCase\<%= $subNamespace %>\<%= $className %>
  */
 <% if ($isController): %>
 class <%= $className %>Test extends IntegrationTestCase {
@@ -47,7 +50,7 @@ class <%= $className %>Test extends TestCase {
 	 *
 	 * @var array
 	 */
-	public $fixtures = [<%= str_replace('    ', "\t", $this->Bake->stringifyList(array_values($fixtures))) %>];
+	public $fixtures = [<%= $this->Bake->stringifyList(array_values($fixtures)) %>];
 <% endif; %>
 <% if (!empty($construction)): %>
 
