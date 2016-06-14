@@ -52,7 +52,7 @@ class <%= $name %> extends AbstractMigration {
 	 * @return void
 	 */
 	public function up() {
-		<%- echo $this->element('Migrations.create-tables', ['tables' => $tables, 'autoId' => $autoId, 'useSchema' => false]) %>
+		<%- echo $this->element('LoadsysTheme.create-tables', ['tables' => $tables, 'autoId' => $autoId, 'useSchema' => false]) %>
 	}
 
 	/**

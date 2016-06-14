@@ -9,10 +9,10 @@ $specialPk = (count($primaryKeys) > 1 || $primaryKeys[0]['name'] !== 'id' || $pr
 %>
 <% if ($specialPk): %>
 
-		$this->table('<%= $tableArgForArray %>', ['id' => false, 'primary_key' => ['<%= implode("', '", \Cake\Utility\Hash::extract($primaryKeys, '{n}.name')) %>']])
+		$this->table('<%= $tableArgForArray %>', ['id' => false, 'primary_key' => ['<%= implode("', '", \Cake\Utility\Hash::extract($primaryKeys, '{n}.name')) %>'], ['comment' => '']])
 <% else: %>
 
-		$this->table('<%= $tableArgForArray %>')
+		$this->table('<%= $tableArgForArray %>', ['comment' => ''])
 <% endif; %>
 <% if ($specialPk || !$autoId):
 	foreach ($primaryKeys as $primaryKey) :
@@ -30,6 +30,8 @@ foreach ($this->Migration->columns($tableArgForMethods) as $column => $config):
 %>
 			->addColumn('<%= $column %>', '<%= $config['columnType'] %>', [<%
 			$columnOptions = $this->Migration->getColumnOption($config['options']);
+			$columnOptions['comment'] = '';
+			//@TODO: init proper integrity checks matching MigrationsTest from skeleton. (Example: int id must be signed=false)
 			if ($config['columnType'] === 'boolean' && isset($columnOptions['default']) && $this->Migration->value($columnOptions['default']) !== 'null'):
 				$columnOptions['default'] = (bool)$columnOptions['default'];
 			endif;
@@ -76,5 +78,5 @@ endforeach; %>
 			->create();
 <% endforeach; %>
 <% if (!empty($constraints)): %>
-<% echo $this->element('Migrations.add-foreign-keys-from-create', ['constraints' => $constraints]); %>
+<% echo $this->element('LoadsysTheme.add-foreign-keys-from-create', ['constraints' => $constraints]); %>
 <% endif; %>

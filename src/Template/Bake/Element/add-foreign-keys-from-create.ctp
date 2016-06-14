@@ -1,3 +1,3 @@
 <% foreach ($constraints as $table => $tableConstraints):
-	echo $this->element('Migrations.add-foreign-keys', ['constraints' => $tableConstraints, 'table' => $table]);
+	echo $this->element('LoadsysTheme.add-foreign-keys', ['constraints' => $tableConstraints, 'table' => $table]);
 endforeach; %>

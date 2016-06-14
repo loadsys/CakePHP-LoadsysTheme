@@ -104,7 +104,7 @@ class <%= $name %> extends AbstractMigration {
         <%- endif; %>
         <%- endforeach; %>
         <%- if (!empty($tables['add'])): %>
-                <%- echo $this->element('Migrations.create-tables', ['tables' => $tables['add'], 'autoId' => $autoId, 'useSchema' => true]) %>
+                <%- echo $this->element('LoadsysTheme.create-tables', ['tables' => $tables['add'], 'autoId' => $autoId, 'useSchema' => true]) %>
         <%- endif; %>
         <%- foreach ($data as $tableName => $tableDiff): %>
             <%- if (!empty($tableDiff['columns']['add'])):
@@ -113,14 +113,14 @@ class <%= $name %> extends AbstractMigration {
 
         <%= $statement %>
             <%- endif; %>
-            <%- echo $this->element('Migrations.add-columns', ['columns' => $tableDiff['columns']['add']]) %>
+            <%- echo $this->element('LoadsysTheme.add-columns', ['columns' => $tableDiff['columns']['add']]) %>
             <%- endif; %>
             <%- if (!empty($tableDiff['indexes']['add'])):
             $statement = $this->Migration->tableStatement($tableName);
             if (!empty($statement)): %>
         <%= $statement %>
             <%- endif; %>
-            <%- echo $this->element('Migrations.add-indexes', ['indexes' => $tableDiff['indexes']['add']]) %>
+            <%- echo $this->element('LoadsysTheme.add-indexes', ['indexes' => $tableDiff['indexes']['add']]) %>
             <%- endif;
             if (isset($this->Migration->tableStatements[$tableName])): %>
             ->update();
@@ -170,7 +170,7 @@ class <%= $name %> extends AbstractMigration {
             <%- endforeach; %>
         <%- endif; %>
         <%- if (!empty($tables['remove'])): %>
-            <%- echo $this->element('Migrations.create-tables', ['tables' => $tables['remove'], 'autoId' => $autoId, 'useSchema' => true]) %>
+            <%- echo $this->element('LoadsysTheme.create-tables', ['tables' => $tables['remove'], 'autoId' => $autoId, 'useSchema' => true]) %>
         <%- endif; %>
         <%- foreach ($data as $tableName => $tableDiff): %>
             <%- if (!empty($tableDiff['indexes']['add'])): %>
@@ -190,7 +190,7 @@ class <%= $name %> extends AbstractMigration {
         <%= $this->Migration->tableStatement($tableName, true) %>
         <%- endif; %>
         <%- if (!empty($tableDiff['columns']['remove'])): %>
-        <%- echo $this->element('Migrations.add-columns', ['columns' => $tableDiff['columns']['remove']]) %>
+        <%- echo $this->element('LoadsysTheme.add-columns', ['columns' => $tableDiff['columns']['remove']]) %>
         <%- endif; %>
         <%- if (!empty($tableDiff['columns']['changed'])):
             $oldTableDef = $dumpSchema[$tableName];
@@ -213,7 +213,7 @@ class <%= $name %> extends AbstractMigration {
             <%- endforeach; %>
         <%- endif; %>
             <%- if (!empty($tableDiff['indexes']['remove'])): %>
-            <%- echo $this->element('Migrations.add-indexes', ['indexes' => $tableDiff['indexes']['remove']]) %>
+            <%- echo $this->element('LoadsysTheme.add-indexes', ['indexes' => $tableDiff['indexes']['remove']]) %>
             <%- endif;
             if (isset($this->Migration->tableStatements[$tableName])): %>
             ->update();

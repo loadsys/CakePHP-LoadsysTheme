@@ -10,58 +10,17 @@ use Cake\Event\Event;
 use Cake\Event\EventManager;
 
 /**
- * Install our own BakeHelper.
+ * Default to the LoadsysTheme and install our own BakeHelper.
  */
 EventManager::instance()->on('Bake.initialize', function (Event $event) {
 	$view = $event->subject;
 
-	// Load our overridden BakeHelper class.
+	// Use the LoadsysTheme if none was explicitly named.
+	if (empty($view->theme())) {
+		$view->theme('LoadsysTheme');
+	}
+
+	// Swap in our overridden BakeHelper class.
 	$view->helpers()->unload('Bake');
 	$view->loadHelper('LoadsysTheme.Bake');
 });
-
-/**
- * Change viewVars globally.
- */
-// EventManager::instance()->on('Bake.beforeRender', function (Event $event) {
-//     $view = $event->subject;
-//
-//     // Use $rows for the main data variable in indexes
-//     if ($view->get('pluralName')) {
-//         $view->set('pluralName', 'rows');
-//     }
-//     if ($view->get('pluralVar')) {
-//         $view->set('pluralVar', 'rows');
-//     }
-//
-//     // Use $theOne for the main data variable in view/edit
-//     if ($view->get('singularName')) {
-//         $view->set('singularName', 'theOne');
-//     }
-//     if ($view->get('singularVar')) {
-//         $view->set('singularVar', 'theOne');
-//     }
-// });
-
-//
-/**
- * Example of injecting viewVars for a specific generated file:
- */
-// EventManager::instance()->on(
-//     'Bake.beforeRender.Controller.controller',
-//     function (Event $event) {
-//         $view = $event->subject();
-//         if ($view->viewVars['name'] == 'Users') {
-//             // add the login and logout actions to the Users controller
-//             $view->viewVars['actions'] = [
-//                 'login',
-//                 'logout',
-//                 'index',
-//                 'view',
-//                 'add',
-//                 'edit',
-//                 'delete'
-//             ];
-//         }
-//     }
-// );

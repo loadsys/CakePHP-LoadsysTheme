@@ -24,7 +24,7 @@
 <% if ($belongsTo):
 	$belongsTo = array_diff($belongsTo, $ignoreAssociations); %>
 		$this->paginate = [
-			'contain' => [<%= $this->Bake->stringifyList($belongsTo, ['indent' => false]) %>]
+			'contain' => [<%= $this->Bake->stringifyList($belongsTo, ['indent' => false]) %>],
 		];
 <% endif; %>
 		$this->set('<%= $pluralName %>', $this->paginate($this-><%= $currentModelName %>));

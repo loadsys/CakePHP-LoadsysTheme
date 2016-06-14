@@ -47,7 +47,7 @@ class <%= $name %> extends AbstractMigration {
 	 */
 	public function change() {
 <% foreach ($tables as $table): %>
-		$table = $this->table('<%= $table%>');
+		$table = $this->table('<%= $table%>', ['comment' => '']);
 <% if ($tableMethod !== 'drop') : %>
 <% if ($columnMethod === 'removeColumn'): %>
 <% foreach ($columns['fields'] as $column => $config): %>
@@ -61,6 +61,7 @@ class <%= $name %> extends AbstractMigration {
 		$table-><%= $columnMethod %>('<%= $column %>', '<%= $config['columnType'] %>', [<%
 				$columnOptions = $config['options'];
 				$columnOptions = array_intersect_key($columnOptions, $wantedOptions);
+				$columnOptions['comment'] = '';
 				echo $this->Bake->stringifyList($columnOptions, ['indent' => 3]);
 			%>]);
 <% endforeach; %>
@@ -68,7 +69,6 @@ class <%= $name %> extends AbstractMigration {
 		$table-><%= $indexMethod %>([<%=
 				$this->Bake->stringifyList($config['columns'], ['indent' => 3])
 				%>], [<%
-				$options = [];
 				echo $this->Bake->stringifyList($config['options'], ['indent' => 3]);
 			%>]);
 <% endforeach; %>
