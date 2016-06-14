@@ -20,6 +20,7 @@
   "require": {
     "php": ">=5.4.16",
     "cakephp/cakephp": "~3.0",
+    "cakephp/bake": "~1.1",
     "loadsys/loadsys_codesniffer": "~3.0"
   },
   "require-dev": {

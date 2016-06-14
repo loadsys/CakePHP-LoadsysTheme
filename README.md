@@ -1,4 +1,4 @@
-# CakePHP-LoadsysTheme
+# Loadsys Bake Theme for CakePHP
 
 [![Latest Version](https://img.shields.io/github/release/loadsys/CakePHP-LoadsysTheme.svg?style=flat-square)](https://github.com/loadsys/CakePHP-LoadsysTheme/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -9,7 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/loadsys/CakePHP-LoadsysTheme/badge.svg)](https://coveralls.io/r/loadsys/CakePHP-LoadsysTheme)
 -->
 
-CakePHP 3.x bake generation theme that matches Loadsys' code sniffer standards.
+A CakePHP 3.x bake generation theme that matches Loadsys' code sniffer standards. It's designed to dovetail with our [CakePHP App Skeleton](https://github.com/loadsys/CakePHP-Skeleton).
 
 
 ## Requirements
@@ -23,13 +23,15 @@ CakePHP 3.x bake generation theme that matches Loadsys' code sniffer standards.
 $ composer require loadsys/cakephp-loadsys-theme:~1.0
 ````
 
+_This plugin includes Bake in its own composer dependencies, so when using this theme you do not need to include it separately in your projects._
+
 
 ## Usage
 
 * Add this plugin to your application by adding this line to your bootstrap.php
 
 ````php
-CakePlugin::load('LoadsysTheme');
+CakePlugin::load('LoadsysTheme', ['bootstrap' => true, 'routes' => false]);
 ````
 
 * To use when baking, use the CLI option `--theme LoadsysTheme` like so
@@ -76,6 +78,11 @@ Please use [GitHub Isuses](https://github.com/loadsys/CakePHP-LoadsysTheme/issue
 ### Development
 
 When developing this plugin, please fork and issue a PR for any new development.
+
+### Running Tests
+
+* `vendor/bin/phpunit --coverage-html=tmp/coverage/`
+* `vendor/bin/phpcs`
 
 
 ## License ##

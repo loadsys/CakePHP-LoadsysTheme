@@ -1,6 +1,6 @@
 <?php
-use Cake\Routing\Router;
+/**
+ * Nothing to do currently.
+ */
 
-Router::plugin('LoadsysTheme', function ($routes) {
-	$routes->fallbacks('InflectedRoute');
-});
+use Cake\Routing\Router;
