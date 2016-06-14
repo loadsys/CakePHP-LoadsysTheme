@@ -14,12 +14,15 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Entity
+ */
 namespace <%= $namespace %>\Model\Entity;
 
 use Cake\ORM\Entity;
 
 /**
- * <%= $name %> Entity.
+ * \<%= $namespace %>\Model\Entity\<%= $name %>
  */
 class <%= $name %> extends Entity {
 <% if (!empty($fields)): %>

@@ -36,6 +36,9 @@ $appTableValidations = [
 ];
 %>
 <?php
+/**
+ * <%= $name %> Model
+ */
 namespace <%= $namespace %>\Model\Table;
 
 <%
@@ -52,7 +55,7 @@ echo implode("\n", $uses);
 
 
 /**
- * <%= $name %> Model
+ * \<%= $namespace %>\Model\Table\<%= $name %>
 <% if ($associations): %>
  *
 <% foreach ($associations as $type => $assocs): %>

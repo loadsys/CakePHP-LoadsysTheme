@@ -14,13 +14,16 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Component
+ */
 namespace <%= $namespace %>\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 
 /**
- * <%= $name %> component
+ * \<%= $namespace %>\Controller\Component\<%= $name %>
  */
 class <%= $name %>Component extends Component {
 
