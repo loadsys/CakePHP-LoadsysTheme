@@ -36,6 +36,9 @@ $appTableValidations = [
 ];
 %>
 <?php
+/**
+ * <%= $name %> Model
+ */
 namespace <%= $namespace %>\Model\Table;
 
 <%
@@ -52,7 +55,7 @@ echo implode("\n", $uses);
 
 
 /**
- * <%= $name %> Model
+ * \<%= $namespace %>\Model\Table\<%= $name %>
 <% if ($associations): %>
  *
 <% foreach ($associations as $type => $assocs): %>
@@ -86,7 +89,6 @@ class <%= $name %>Table extends Table {
 		$this->primaryKey('<%= current((array)$primaryKey) %>');
 <% endif %>
 <% endif %>
-
 <% foreach ($behaviors as $behavior => $behaviorData):
 	if (in_array($behavior, $appTableBehaviors)) { continue; } %>
 		$this->addBehavior('<%= $behavior %>'<%= $behaviorData ? ", [" . implode(', ', $behaviorData) . ']' : '' %>);
@@ -97,7 +99,7 @@ class <%= $name %>Table extends Table {
 	$alias = $assoc['alias'];
 	unset($assoc['alias']);
 %>
-		$this-><%= $type %>('<%= $alias %>', [<%= str_replace('    ', "\t", $this->Bake->stringifyList($assoc, ['indent' => 3])) %>]);
+		$this-><%= $type %>('<%= $alias %>', [<%= $this->Bake->stringifyList($assoc, ['indent' => 3]) %>]);
 <% endforeach %>
 <% endforeach %>
 	}

@@ -14,13 +14,16 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Behavior
+ */
 namespace <%= $namespace %>\Model\Behavior;
 
 use Cake\ORM\Behavior;
 use Cake\ORM\Table;
 
 /**
- * <%= $name %> behavior
+ * \<%= $namespace %>\Model\Behavior\<%= $name %>
  */
 class <%= $name %>Behavior extends Behavior {
 

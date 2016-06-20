@@ -14,12 +14,15 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Cell
+ */
 namespace <%= $namespace %>\View\Cell;
 
 use Cake\View\Cell;
 
 /**
- * <%= $name %> cell
+ * \<%= $namespace %>\View\Cell\<%= $name %>
  */
 class <%= $name %>Cell extends Cell {
 

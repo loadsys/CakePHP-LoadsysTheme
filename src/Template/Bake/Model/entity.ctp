@@ -14,12 +14,15 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Entity
+ */
 namespace <%= $namespace %>\Model\Entity;
 
 use Cake\ORM\Entity;
 
 /**
- * <%= $name %> Entity.
+ * \<%= $namespace %>\Model\Entity\<%= $name %>
  */
 class <%= $name %> extends Entity {
 <% if (!empty($fields)): %>
@@ -42,7 +45,7 @@ class <%= $name %> extends Entity {
 	 *
 	 * @var array
 	 */
-	protected $_hidden = [<%= str_replace('    ', "\t", $this->Bake->stringifyList($hidden)) %>];
+	protected $_hidden = [<%= $this->Bake->stringifyList($hidden) %>];
 <% endif %>
 <% if (empty($fields) && empty($hidden)): %>
 

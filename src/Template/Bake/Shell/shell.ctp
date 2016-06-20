@@ -14,12 +14,15 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Shell
+ */
 namespace <%= $namespace %>\Shell;
 
 use Cake\Console\Shell;
 
 /**
- * <%= $name %> shell command.
+ * \<%= $namespace %>\Shell\<%= $name %>
  */
 class <%= $name %>Shell extends Shell {
 

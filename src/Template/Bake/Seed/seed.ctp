@@ -14,8 +14,33 @@
  */
 %>
 <?php
-use Cake\Routing\Router;
+/**
+ * <%= $name %> seed.
+ */
+use Phinx\Seed\AbstractSeed;
 
-Router::plugin('<%= $plugin %>', function ($routes) {
-	$routes->fallbacks('DashedRoute');
-});
+/**
+ * \<%= $name %>
+ */
+class <%= $name %>Seed extends AbstractSeed {
+	/**
+	 * Run Method.
+	 *
+	 * Write your database seeder using this method.
+	 *
+	 * More information on writing seeders is available here:
+	 * http://docs.phinx.org/en/latest/seeding.html
+	 *
+	 * @return void
+	 */
+	public function run() {
+<% if ($records): %>
+		$data = <%= $records %>;
+<% else: %>
+		$data = [];
+<% endif; %>
+
+		$table = $this->table('<%= $table %>');
+		$table->insert($data)->save();
+	}
+}

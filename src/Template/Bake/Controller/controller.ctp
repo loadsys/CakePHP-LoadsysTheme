@@ -22,12 +22,15 @@ $defaultModel = $name;
 $ignoreAssociations = ['Creators', 'Modifiers'];
 %>
 <?php
+/**
+ * <%= $name %> Controller
+ */
 namespace <%= $namespace %>\Controller<%= $prefix %>;
 
 use <%= $namespace %>\Controller\AppController;
 
 /**
- * <%= $name %> Controller
+ * \<%= $namespace %>\Controller<%= $prefix %>\<%= $name %>
  *
  * @property \<%= $namespace %>\Model\Table\<%= $defaultModel %>Table $<%= $defaultModel %>
 <%

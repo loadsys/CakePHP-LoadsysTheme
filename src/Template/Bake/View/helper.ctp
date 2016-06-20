@@ -14,13 +14,16 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Helper
+ */
 namespace <%= $namespace %>\View\Helper;
 
 use Cake\View\Helper;
 use Cake\View\View;
 
 /**
- * <%= $name %> helper
+ * \<%= $namespace %>\View\Helper\<%= $name %>
  */
 class <%= $name %>Helper extends Helper {
 

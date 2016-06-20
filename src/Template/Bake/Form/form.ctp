@@ -14,6 +14,9 @@
 */
 %>
 <?php
+/**
+ * <%= $name %> Form
+ */
 namespace <%= $namespace %>\Form;
 
 use Cake\Form\Form;
@@ -21,7 +24,7 @@ use Cake\Form\Schema;
 use Cake\Validation\Validator;
 
 /**
- * <%= $name %> Form.
+ * \<%= $namespace %>\Form\<%= $name %>
  */
 class <%= $name %>Form extends Form {
 	/**

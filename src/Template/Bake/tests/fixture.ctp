@@ -18,13 +18,15 @@
  */
 %>
 <?php
+/**
+ * <%= $name %> Fixture
+ */
 namespace <%= $namespace %>\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * <%= $name %>Fixture
- *
+ * \<%= $namespace %>\Test\Fixture\<%= $name %>Fixture
  */
 class <%= $name %>Fixture extends TestFixture {
 <% if ($table): %>

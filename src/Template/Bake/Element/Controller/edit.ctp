@@ -27,7 +27,7 @@ $compact = ["'" . $singularName . "'"];
 	 */
 	public function edit($id = null) {
 		$<%= $singularName %> = $this-><%= $currentModelName %>->get($id, [
-			'contain' => [<%= $this->Bake->stringifyList($belongsToMany, ['indent' => false]) %>]
+			'contain' => [<%= $this->Bake->stringifyList($belongsToMany, ['indent' => false]) %>],
 		]);
 		if ($this->request->is(['patch', 'post', 'put'])) {
 			$<%= $singularName %> = $this-><%= $currentModelName %>->patchEntity($<%= $singularName %>, $this->request->data);
